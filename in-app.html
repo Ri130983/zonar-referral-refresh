@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zonar in-app Refer &amp; earn (concept)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#005BF8;--blue-d:#0049C6;--yellow:#FFD800;--green:#2E7D32;--amber:#8A5A00;--ink:#212121;--muted:#5C5C5C;--line:#D9D9D9;--smoke:#F4F4F4;--tint:#EEF4FF}
+*{box-sizing:border-box}
+body{margin:0;font-family:Roboto,system-ui,sans-serif;color:var(--ink);background:var(--smoke);font-size:14px;line-height:1.5}
+a{color:var(--blue)}a:hover{color:var(--blue-d)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.top{height:56px;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:relative;z-index:5}
+.top img{height:24px;display:block}
+.top-r{display:flex;align-items:center;gap:4px}
+.ib{width:44px;height:44px;border-radius:8px;border:0;background:transparent;color:#E0E0E0;display:grid;place-items:center;cursor:pointer;position:relative}
+.ib:hover{background:rgba(255,255,255,.1);color:#fff}
+.ib[aria-expanded="true"]{background:rgba(255,255,255,.16);color:#fff}
+.ib .badge{position:absolute;top:9px;right:9px;width:9px;height:9px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 2px var(--ink)}
+.avatar{width:32px;height:32px;border-radius:50%;background:#4A4A4A;color:#fff;display:grid;place-items:center;font-weight:600;font-size:13px;margin-left:8px}
+.shell{display:flex;min-height:calc(100vh - 56px)}
+.side{width:240px;background:#fff;border-right:1px solid var(--line);padding:16px 12px;flex:none}
+.side a{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:500;margin-bottom:2px}
+.side a:hover{background:rgba(0,0,0,.04)}
+.side a.on{background:var(--tint);color:var(--blue);font-weight:600}
+.side .refer-link{margin-top:24px;border:1px dashed #9DBBF5;color:var(--blue)}
+.main{flex:1;padding:24px 32px;min-width:0}
+.main h1{font-size:24px;margin:0 0 4px}
+.main .desc{color:var(--muted);margin:0 0 24px}
+.sk{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
+.bar{height:12px;border-radius:6px;background:#E8E8E8;margin-bottom:12px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-bottom:24px}
+.big{height:360px}
+/* nudge */
+.nudge{position:absolute;top:62px;right:96px;background:var(--blue);color:#fff;padding:10px 14px;border-radius:8px;font-weight:500;display:flex;gap:10px;align-items:center;box-shadow:0 10px 15px rgba(0,0,0,.1);z-index:6}
+.nudge:before{content:"";position:absolute;top:-6px;right:18px;border:6px solid transparent;border-top:0;border-bottom-color:var(--blue)}
+.nudge button{background:transparent;border:0;color:#fff;cursor:pointer;width:28px;height:28px;display:grid;place-items:center;border-radius:6px}
+/* panel */
+.panel{position:absolute;top:64px;right:64px;width:400px;max-width:calc(100vw - 24px);background:#fff;border-radius:12px;box-shadow:0 20px 25px rgba(0,0,0,.15);border:1px solid var(--line);z-index:10;overflow:hidden}
+.p-head{padding:20px 20px 0;display:flex;gap:14px;align-items:flex-start}
+.p-ico{width:44px;height:44px;border-radius:12px;background:var(--tint);color:var(--blue);display:grid;place-items:center;flex:none}
+.p-head h2{font-size:18px;margin:0 0 2px;line-height:1.25}
+.p-head p{margin:0;color:var(--muted)}
+.p-close{margin-left:auto;width:36px;height:36px;border:0;background:transparent;border-radius:8px;cursor:pointer;color:var(--muted);display:grid;place-items:center;flex:none}
+.p-close:hover{background:var(--smoke)}
+.earn{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 20px 0}
+.earn div{background:var(--tint);border-radius:10px;padding:12px 14px}
+.earn div+div{background:var(--smoke)}
+.earn small{display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.earn b{font-size:22px;font-weight:800;color:var(--blue)}
+.earn div+div b{color:var(--ink)}
+.tabs{display:flex;gap:4px;margin:16px 20px 0;background:var(--smoke);border-radius:999px;padding:4px}
+.tab{flex:1;min-height:36px;border:0;border-radius:999px;background:transparent;font:500 14px Roboto,sans-serif;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.p-body{padding:16px 20px 20px}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:13px;font-weight:600;margin-bottom:4px}
+.fld input,.fld select{width:100%;min-height:40px;padding:8px 12px;border:1px solid #B5B5B5;border-radius:8px;font:400 14px Roboto,sans-serif;color:var(--ink);background:#fff}
+.fld input:focus,.fld select:focus{outline:3px solid rgba(0,91,248,.3);border-color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.from{font-size:13px;color:var(--muted);margin:4px 0 14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;font:600 14px Roboto,sans-serif;border:0;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--blue);color:#fff;width:100%}.btn-primary:hover{background:var(--blue-d)}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;margin:16px 0 12px}
+.or:before,.or:after{content:"";flex:1;height:1px;background:var(--line)}
+.linkrow{display:flex;gap:8px}
+.linkrow code{flex:1;display:flex;align-items:center;padding:0 12px;min-height:40px;border:1px solid var(--line);border-radius:8px;background:var(--smoke);font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden}
+.btn-outline{background:#fff;color:var(--blue);border:1.5px solid var(--blue);min-height:40px}
+.btn-outline:hover{background:var(--tint)}
+.p-foot{border-top:1px solid var(--line);padding:12px 20px;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.ref{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.ref:last-of-type{border-bottom:0}
+.ref .co{font-weight:600}
+.ref .meta{color:var(--muted);font-size:13px}
+.chip{margin-left:auto;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.c-blue{background:var(--tint);color:var(--blue)}
+.c-amber{background:#FFF4D6;color:var(--amber)}
+.c-green{background:#E6F2E7;color:var(--green)}
+.prog{height:6px;background:#E8E8E8;border-radius:3px;margin-top:6px;overflow:hidden}
+.prog span{display:block;height:100%;background:var(--blue)}
+.total{display:flex;justify-content:space-between;background:var(--smoke);border-radius:10px;padding:12px 14px;margin-top:12px;font-weight:600}
+.done{text-align:center;padding:12px 0 4px}
+.done .p-ico{margin:0 auto 12px;background:#E6F2E7;color:var(--green)}
+.upsell{margin-top:14px;border:1px solid #9DBBF5;background:var(--tint);border-radius:12px;padding:14px}
+.up-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.up-h b{font-size:15px}.up-h span{font-size:12px;color:var(--muted)}
+.upsell p{margin:4px 0 10px;font-size:13px;color:var(--ink)}
+.up-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.up-opt{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:10px;text-align:left;cursor:pointer;font-family:Roboto,sans-serif;color:var(--ink)}
+.up-opt[aria-checked="true"]{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.up-opt small{display:block;font-size:12px;font-weight:600;color:var(--muted)}
+.up-opt b{display:block;font-size:20px;font-weight:800;color:var(--blue)}
+.up-opt span{font-size:12px;color:var(--muted)}
+.upsell .up-fine{font-size:12px;color:var(--muted);margin:8px 0 4px}
+.btn-link{background:none;border:0;color:var(--blue);font:500 13px Roboto,sans-serif;cursor:pointer;padding:6px 0;min-height:32px;text-decoration:underline}
+.hidden{display:none!important}
+.label-note{position:fixed;left:16px;bottom:16px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--muted)}
+@media (max-width:760px){.side{display:none}.main{padding:16px}.panel{right:12px}.nudge{right:24px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+<symbol id="i-dash" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+</svg>
+
+<header class="top">
+  <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQ5IiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDM0OSAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJab25hciIgeG1sbnM6YzJwYT0iaHR0cDovL2MycGEub3JnL21hbmlmZXN0Ij4KPHBhdGggZD0iTTEyOC45MTIgMy45Mjc3OEMxMjIuNzQ0IDEuMzIyMjIgMTE2LjE5OCAwIDEwOS40NDcgMEMxMDIuNjk1IDAgOTYuMTQzNiAxLjMyMjIyIDg5Ljk4MTEgMy45Mjc3OEM4NC4wMjQyIDYuNDQ0NDQgNzguNjc4NiAxMC4wNSA3NC4wODMxIDE0LjY0NDRDNjkuNDg3NyAxOS4yMzg5IDY1Ljg4MTMgMjQuNTgzMyA2My4zNjQxIDMwLjUzODlDNjAuNzU3OSAzNi43MDU2IDU5LjQzNTQgNDMuMjUgNTkuNDM1NCA1MEM1OS40MzU0IDU2Ljc1IDYwLjc1NzkgNjMuMyA2My4zNjQxIDY5LjQ2MTFDNjUuODgxMyA3NS40MTY3IDY5LjQ4NzcgODAuNzYxMSA3NC4wODMxIDg1LjM1NTZDNzguNjc4NiA4OS45NSA4NC4wMjQyIDkzLjU1NTYgODkuOTgxMSA5Ni4wNzIyQzk2LjE0OTIgOTguNjc3OCAxMDIuNjk1IDEwMCAxMDkuNDQ3IDEwMEMxMTYuMTk4IDEwMCAxMjIuNzUgOTguNjc3OCAxMjguOTEyIDk2LjA3MjJDMTM0Ljg2OSA5My41NTU2IDE0MC4yMTUgODkuOTUgMTQ0LjgxIDg1LjM1NTZDMTQ5LjQwNSA4MC43NjExIDE1My4wMTIgNzUuNDE2NyAxNTUuNTI5IDY5LjQ2MTFDMTU4LjEzNSA2My4yOTQ0IDE1OS40NTggNTYuNzUgMTU5LjQ1OCA1MEMxNTkuNDU4IDQzLjI1IDE1OC4xMzUgMzYuNyAxNTUuNTI5IDMwLjUzODlDMTUzLjAxMiAyNC41ODMzIDE0OS40MDUgMTkuMjM4OSAxNDQuODEgMTQuNjQ0NEMxNDAuMjE1IDEwLjA1IDEzNC44NjkgNi40NDQ0NCAxMjguOTEyIDMuOTI3NzhaIiBmaWxsPSIjMDA5RkRGIi8+CjxwYXRoIGQ9Ik0xMDkuNDQ3IDkxLjI4ODhDMTMyLjM2NSA5MS4yODg4IDE1MC45NDUgNzIuNzEzNiAxNTAuOTQ1IDQ5Ljc5OTlDMTUwLjk0NSAyNi44ODYyIDEzMi4zNjUgOC4zMTEwNCAxMDkuNDQ3IDguMzExMDRDODYuNTI3OCA4LjMxMTA0IDY3Ljk0ODUgMjYuODg2MiA2Ny45NDg1IDQ5Ljc5OTlDNjcuOTQ4NSA3Mi43MTM2IDg2LjUyNzggOTEuMjg4OCAxMDkuNDQ3IDkxLjI4ODhaIiBmaWxsPSIjMzNCMkU1Ii8+CjxwYXRoIGQ9Ik0xMDkuNDQ3IDgyLjYyNzlDMTI3LjQ3IDgyLjYyNzkgMTQyLjA4MiA2OC4wMTk5IDE0Mi4wODIgNTAuMDAwMUMxNDIuMDgyIDMxLjk4MDMgMTI3LjQ3IDE3LjM3MjMgMTA5LjQ0NyAxNy4zNzIzQzkxLjQyMjcgMTcuMzcyMyA3Ni44MTE1IDMxLjk4MDMgNzYuODExNSA1MC4wMDAxQzc2LjgxMTUgNjguMDE5OSA5MS40MjI3IDgyLjYyNzkgMTA5LjQ0NyA4Mi42Mjc5WiIgZmlsbD0iIzY2QzVFQyIvPgo8cGF0aCBkPSJNMTMzLjIxOSA1MC4wMDAxQzEzMy4yMTkgNjMuMTI3OCAxMjIuNTc3IDczLjc2NjcgMTA5LjQ0NyA3My43NjY3Qzk2LjMxNTggNzMuNzY2NyA4NS42NzQ2IDYzLjEyNzggODUuNjc0NiA1MC4wMDAxQzg1LjY3NDYgMzYuODcyMyA5Ni4zMTU4IDI2LjIzMzQgMTA5LjQ0NyAyNi4yMzM0QzEyMi41NzcgMjYuMjMzNCAxMzMuMjE5IDM2Ljg3MjMgMTMzLjIxOSA1MC4wMDAxWiIgZmlsbD0iIzk5RDlGMiIvPgo8cGF0aCBkPSJNMTI0LjM1IDUwLjAwNTZDMTI0LjM1IDU4LjIzMzQgMTE3LjY3NiA2NC45IDEwOS40NTIgNjQuOUMxMDEuMjI4IDY0LjkgOTQuNTU0MyA1OC4yMzM0IDk0LjU1NDMgNTAuMDA1NkM5NC41NTQzIDQxLjc3NzggMTAxLjIyOCAzNS4xMTY3IDEwOS40NTIgMzUuMTE2N0MxMTcuNjc2IDM1LjExNjcgMTI0LjM1IDQxLjc4MzQgMTI0LjM1IDUwLjAwNTZaIiBmaWxsPSIjQ0NFQ0Y5Ii8+CjxwYXRoIGQ9Ik0xMDguMjkxIDQ4LjM0NDVDMTA3LjY2MyA0OC45ODMzIDEwNy42NjggNTAuMDA1NiAxMDguMzA3IDUwLjYzMzNMMTQ0LjE0MyA4Ni4wMDU2QzE0NC4zMzIgODYuMTg4OSAxNDYuNTg4IDgzLjg2NjcgMTQ2LjM5OSA4My42ODg5TDExMC41OCA0OC4zMjc4QzEwOS45NDEgNDcuNyAxMDguOTE5IDQ3LjcwNTYgMTA4LjI5MSA0OC4zNDQ1WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTExNS41MTUgNTAuMDExQzExNS41MTUgNTMuMzYxIDExMi43OTcgNTYuMDc3NyAxMDkuNDQ3IDU2LjA3NzdDMTA2LjA5NiA1Ni4wNzc3IDEwMy4zNzkgNTMuMzYxIDEwMy4zNzkgNTAuMDExQzEwMy4zNzkgNDYuNjYxIDEwNi4wOTYgNDMuOTQ0MyAxMDkuNDQ3IDQzLjk0NDNDMTEyLjc5NyA0My45NDQzIDExNS41MTUgNDYuNjYxIDExNS41MTUgNTAuMDExWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTAgNzguODQ5OEg0Ny43NjYyTDU3LjM2ODMgNjMuOTE2NUgyNy4yMzM4TDU3LjIzNSAyMS43MTA5SDEyLjMxOTRMMi4wODkzNSAzNi42Mzg3SDI5LjM4NDNMMCA3OC44NDk4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTE2Ny4wNDMgMTkuNTYxVjc4Ljg4ODhIMTgxLjg2OFY0OS45MTY2TDIyMi43MDUgODAuNDM4OFYyMS4xNDk5SDIwNy44OTFWNTAuNDgzM0wxNjcuMDQzIDE5LjU2MVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yNDQuMzM4IDc4Ljg0OThIMjI2LjY3OEwyNTguMjM1IDIwLjEyMjFMMjkyLjIwNCA3OC44NDk4SDI3NC4wMTFMMjU4LjIzNSA1MC41NTU0TDI0NC4zMzggNzguODQ5OFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMzM2LjIxNCA1OS4zMTY2TDM0OSA3OC45MTFIMzMzLjkxOUwzMTYuMTE1IDUyLjE3MjFIMzIwLjQ5OUMzMjQuODYxIDUxLjcyNzcgMzI4LjIwNiA0Ny45NjY2IDMyOC4yMDYgNDMuNDQ5OUMzMjguMjA2IDM4LjYzMzIgMzI0LjMzOSAzNC42MDU1IDMxOS41NiAzNC42MDU1SDMxMC4xNjlWNzguODQ0M0gyOTUuNTk0VjIxLjE0OTlIMzIwLjcyN0MzMzIuODE5IDIxLjE0OTkgMzQyLjYyNiAzMS4zNjEgMzQyLjYyNiA0My41NTU1QzM0Mi42MjYgNDkuNjk0MyAzNDAuMTkyIDU1LjI4ODggMzM2LjIwOCA1OS4zMjIxTDMzNi4yMTQgNTkuMzE2NloiIGZpbGw9IndoaXRlIi8+CjxtZXRhZGF0YT48YzJwYTptYW5pZmVzdD5BQUFXZ21wMWJXSUFBQUFlYW5WdFpHTXljR0VBRVFBUWdBQUFxZ0E0bTNFRFl6SndZUUFBQUJaY2FuVnRZZ0FBQUVkcWRXMWtZekp0WVFBUkFCQ0FBQUNxQURpYmNRTjFjbTQ2WXpKd1lUbzNaakJrWWpRMVl5MDRNMk5pTFRSbE5HUXRZVEkyTVMxbE1HTXpZelJrTURsa01URUFBQUFEbDJwMWJXSUFBQUFwYW5WdFpHTXlZWE1BRVFBUWdBQUFxZ0E0bTNFRFl6SndZUzVoYzNObGNuUnBiMjV6QUFBQUFMeHFkVzFpQUFBQVJHcDFiV1JqWW05eUFCRUFFSUFBQUtvQU9KdHhFMk15Y0dFdWFXNW5jbVZrYVdWdWRDNTJNd0FBQUFBWVl6SnphRkNvNUlNV1o0MVlqZERTclZFb25UUUFBQUJ3WTJKdmNxTnBaR002Wm05eWJXRjBiV2x0WVdkbEwzTjJaeXQ0Yld4cWFXNXpkR0Z1WTJWSlJIZ3NlRzF3T21scFpEbzVaamMyWmprNVlTMHlZek0xTFRSaU1ERXRPR00zTXkxbVltTmhPV1k1TVRRMU9HVnNjbVZzWVhScGIyNXphR2x3YUhCaGNtVnVkRTltQUFBQjRtcDFiV0lBQUFCQmFuVnRaR05pYjNJQUVRQVFnQUFBcWdBNG0zRVRZekp3WVM1aFkzUnBiMjV6TG5ZeUFBQUFBQmhqTW5Ob2RKRFkrdktIZzA2VGF5TVlhT0JLMHdBQUFabGpZbTl5b21kaFkzUnBiMjV6Z3FKbVlXTjBhVzl1YTJNeWNHRXViM0JsYm1Wa2FuQmhjbUZ0WlhSbGNuT2hhMmx1WjNKbFpHbGxiblJ6Z2FKamRYSnNlQzF6Wld4bUkycDFiV0ptUFdNeWNHRXVZWE56WlhKMGFXOXVjeTlqTW5CaExtbHVaM0psWkdsbGJuUXVkak5rYUdGemFGZ2dRTWY5WW5JYWM0aXg3Y1VtclV6RTZHVmpHTWVmNmEzV3IxQTNCRmhONmp5a1ptRmpkR2x2Ym5nZFkyOXRMbUZ1ZEdoeWIzQnBZeTVqYkdGMVpHVXVjSEp2ZG1sa1pXUnFjR0Z5WVcxbGRHVnljNkY0SDJOdmJTNWhiblJvY205d2FXTXViM0pwWjJsdUxXTnZibVpwWkdWdVkyVm5kVzVyYm05M2JtdGtaWE5qY21sd2RHbHZibmhtUTJ4aGRXUmxJSEJ5YjNacFpHVmtJSFJvYVhNZ1ptbHNaU0JoZENCMGFHVWdjbVZ4ZFdWemRDQnZaaUJoSUhWelpYSWdZVzVrSUcxaGVTQm9ZWFpsSUdOeVpXRjBaV1FnYjNJZ2JXOWthV1pwWldRZ2RHaGxJR1pwYkdVZ1kyOXVkR1Z1ZEhNdWJYTnZablIzWVhKbFFXZGxiblNoWkc1aGJXVm1RMnhoZFdSbGNtRnNiRUZqZEdsdmJuTkpibU5zZFdSbFpQVUFBQURJYW5WdFlnQUFBRUJxZFcxa1kySnZjZ0FSQUJDQUFBQ3FBRGliY1JOak1uQmhMbWhoYzJndVpHRjBZUUFBQUFBWVl6SnphQWpRYUZtaXlSUW1sdVhUTW1ZWTROVUFBQUNBWTJKdmNxVmpZV3huWm5Ob1lUSTFObU53WVdSTUFBQUFBQUFBQUFBQUFBQUFaR2hoYzJoWUlDOVhqWkpVdjJaTFpndUhKQXo0enVjeVdjV0ZIK2IrVkZaN0hGMVF6ODZBWkc1aGJXVnVhblZ0WW1ZZ2JXRnVhV1psYzNScVpYaGpiSFZ6YVc5dWM0R2laWE4wWVhKMEdRdnpabXhsYm1kMGFCa2VCQUFBQWo1cWRXMWlBQUFBSjJwMWJXUmpNbU5zQUJFQUVJQUFBS29BT0p0eEEyTXljR0V1WTJ4aGFXMHVkaklBQUFBQ0QyTmliM0tsWTJGc1oyWnphR0V5TlRacGMybG5ibUYwZFhKbGVFMXpaV3htSTJwMWJXSm1QUzlqTW5CaEwzVnlianBqTW5CaE9qZG1NR1JpTkRWakxUZ3pZMkl0TkdVMFpDMWhNall4TFdVd1l6TmpOR1F3T1dReE1TOWpNbkJoTG5OcFoyNWhkSFZ5WldwcGJuTjBZVzVqWlVsRWVDeDRiWEE2YVdsa09qSXdNRGxoT1daa0xURXpaVEF0TkRneE1TMWhZVFkxTFdGaU1USTJZV0ptWVRWaFpYSmpjbVZoZEdWa1gyRnpjMlZ5ZEdsdmJuT0RvbU4xY214NExYTmxiR1lqYW5WdFltWTlZekp3WVM1aGMzTmxjblJwYjI1ekwyTXljR0V1YVc1bmNtVmthV1Z1ZEM1Mk0yUm9ZWE5vV0NCQXgvMWljaHB6aUxIdHhTYXRUTVRvWldNWXg1L3ByZGF2VURjRVdFM3FQS0pqZFhKc2VDcHpaV3htSTJwMWJXSm1QV015Y0dFdVlYTnpaWEowYVc5dWN5OWpNbkJoTG1GamRHbHZibk11ZGpKa2FHRnphRmdnWkJuTDZKRUVBS2tWV0VhcGVOTXQzdEpVakExZVkvWjZibmRoejhJKzVqMmlZM1Z5YkhncGMyVnNaaU5xZFcxaVpqMWpNbkJoTG1GemMyVnlkR2x2Ym5Ndll6SndZUzVvWVhOb0xtUmhkR0ZrYUdGemFGZ2dXbXVUMjZBcUhYc1U0b3Z6T1lpbzRlN2szR2lyenZtTTU5OFoweGNmaFF0MFkyeGhhVzFmWjJWdVpYSmhkRzl5WDJsdVptK2paRzVoYldWdlFXNTBhSEp2Y0dsaklFWnBiR1Z6WjNabGNuTnBiMjVsTVM0d0xqQnJjM0JsWTFabGNuTnBiMjVsTWk0MExqQUFBQkE0YW5WdFlnQUFBQ2hxZFcxa1l6Smpjd0FSQUJDQUFBQ3FBRGliY1FOak1uQmhMbk5wWjI1aGRIVnlaUUFBQUJBSVkySnZjdEtFV1FJU29nRW1HQ0ZaQWdvd2dnSUdNSUlCamFBREFnRUNBaFJBNWFBSzdzSTUwTDY0Zy9vR1FnVTlaMVVUQURBS0JnZ3Foa2pPUFFRREF6QkpNUmN3RlFZRFZRUUtFdzVCYm5Sb2NtOXdhV01zSUZCQ1F6RXVNQ3dHQTFVRUF4TWxRVzUwYUhKdmNHbGpJRU52Ym5SbGJuUWdRM0psWkdWdWRHbGhiSE1nVW05dmRDQkRRVEFlRncweU5qQTRNRGN4T0RRek5UWmFGdzB5T0RBNE1EWXhPVFF6TlRaYU1FUXhGekFWQmdOVkJBb1REa0Z1ZEdoeWIzQnBZeXdnVUVKRE1Ta3dKd1lEVlFRREV5QkJiblJvY205d2FXTWdRMnhoZFdSbElFTnZiblJsYm5RZ1UybG5ibWx1WnpCWk1CTUdCeXFHU000OUFnRUdDQ3FHU000OUF3RUhBMElBQkpoNkNtdkxVQmdGRk5VMHZVS2xPVnRFNmRqZDE3TDVTdXdYMExlbUZpc0JNM2RrZC8zY3lqeEZBM1FvNVM0NmZYMC9paFkwVlo3bWZiOUtGNzAzdDVPaldEQldNQTRHQTFVZER3RUIvd1FFQXdJSGdEQVZCZ05WSFNVRURqQU1CZ29yQmdFRUFZUG9YZ0lCTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwakJCZ3dGb0FVemxIaUJJRk9aRnNqK09QRXo1bytuTUhYWE1Jd0NnWUlLb1pJemowRUF3TURad0F3WkFJd01YTWRGSjRCZXRMTFZZN09SdUU5bm9xYmJBWk9abi9hQXJYeVR3RkFaZktyUHp4RjJ2UG9KTmYxK1VDZGcxWEdBakJ3WDF6ZDlXR3FZa3FtTDVTRnF3MVF5U2pyMXpKZnBKTTkrMXJkRHdTUExNT1BPakt1aVhqb1UvcFVVZUc5UndtaFkzQmhaRmtObmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFQWllRSzhxbmd5bklSb0tVRUxyUDZ5Mk9CZ0U4T3BzdzkrOHJtRHhwZnQ4OFlkemNIWGZhc25sMHM0YnQ4WG9SQi9GM1RKOE44N1Z4QVNFVVZLODJzZjZDSHc9PC9jMnBhOm1hbmlmZXN0PjwvbWV0YWRhdGE+PC9zdmc+Cg==" alt="Zonar">
+  <div class="top-r">
+    <button class="ib" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></button>
+    <button class="ib" aria-label="Help"><svg class="i"><use href="#i-help"/></svg></button>
+    <button class="ib" id="gift" aria-label="Refer and earn" aria-expanded="false" aria-controls="panel"><svg class="i"><use href="#i-gift"/></svg><span class="badge" id="giftdot"></span></button>
+    <button class="ib" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg></button>
+    <div class="avatar" aria-hidden="true">JR</div>
+  </div>
+</header>
+
+<div class="nudge" id="nudge" role="status">New: refer a fleet and you both earn
+  <button aria-label="Dismiss" id="nudge-x"><svg class="i" style="width:16px;height:16px"><use href="#i-x"/></svg></button></div>
+
+<section class="panel hidden" id="panel" aria-labelledby="p-title">
+  <div class="p-head">
+    <div class="p-ico"><svg class="i"><use href="#i-gift"/></svg></div>
+    <div><h2 id="p-title">Refer a fleet. You both earn.</h2><p>Know a business that runs vehicles? If they become a Zonar customer, you both get a reward.</p></div>
+    <button class="p-close" aria-label="Close" id="close"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="earn"><div><small>You get up to</small><b>$1,500</b></div><div><small>They get up to</small><b>$1,500</b><small style="text-transform:none;letter-spacing:0;font-weight:500">with a 3-year contract</small></div></div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="refer">Refer</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="mine">My referrals (3)</button>
+  </div>
+
+  <div class="p-body" id="tab-refer">
+    <form id="f">
+      <div class="fld"><label for="co">Company name</label><input id="co" required></div>
+      <div class="two">
+        <div class="fld"><label for="cn">Contact name</label><input id="cn" required></div>
+        <div class="fld"><label for="sz">Vehicles</label><select id="sz"><option>5–9</option><option selected>10–49</option><option>50–99</option><option>100+</option></select></div>
+      </div>
+      <div class="fld"><label for="ce">Contact email or phone</label><input id="ce" required></div>
+      <p class="from">Reward goes to Jamie Rivera, jamie.rivera@[customer].com. <a href="#">Change</a></p>
+      <button class="btn btn-primary" type="submit"><svg class="i" style="width:18px;height:18px"><use href="#i-gift"/></svg>Send referral</button>
+    </form>
+    <div class="done hidden" id="done">
+      <div class="p-ico"><svg class="i"><use href="#i-check"/></svg></div>
+      <b style="font-size:16px">Referral sent</b>
+      <p style="color:var(--muted);margin:4px 0 0">A Zonar fleet specialist will reach out to them. You can follow it under My referrals.</p>
+    </div>
+    <div class="upsell hidden" id="upsell">
+      <div class="up-h"><b>Get up to 2 months free</b><span>Your agreement ends [MM/YYYY]</span></div>
+      <p>Extend now and get free service on your [N] telematics and camera subscriptions. You keep your gift card too.</p>
+      <div class="up-opts" role="radiogroup" aria-label="Extension length">
+        <button class="up-opt" type="button" role="radio" aria-checked="false" data-x="2"><small>+24 months</small><b>1 month free</b><span>about $[X] in credit</span></button>
+        <button class="up-opt" type="button" role="radio" aria-checked="true" data-x="3"><small>+36 months</small><b>2 months free</b><span>about $[X] in credit</span></button>
+      </div>
+      <button class="btn btn-primary" id="extend" type="button">Send me the extension to sign</button>
+      <p class="up-fine">Same terms, pre-filled for e-signature. Your free service is applied as a credit across your next 12 invoices and applies whether or not the company you referred signs.</p>
+      <button class="btn-link" id="again" type="button">Not now, refer another fleet</button>
+    </div>
+    <div class="done hidden" id="ext-done">
+      <div class="p-ico"><svg class="i"><use href="#i-check"/></svg></div>
+      <b style="font-size:16px">Extension on its way</b>
+      <p style="color:var(--muted);margin:4px 0 12px">Check your email for the extension to sign. Your credit is applied once it's signed.</p>
+      <button class="btn btn-outline" id="again2" type="button">Refer another</button>
+    </div>
+    <div class="or">or share your link</div>
+    <div class="linkrow"><code>zonar.com/refer/[CODE]</code><button class="btn btn-outline" id="copy" type="button">Copy</button></div>
+  </div>
+
+  <div class="p-body hidden" id="tab-mine">
+    <div class="ref"><div><div class="co">[Company A]</div><div class="meta">24 vehicles · Submitted 10/02/2026</div></div><span class="chip c-blue">In conversation</span></div>
+    <div class="ref"><div style="flex:1"><div class="co">[Company B]</div><div class="meta">8 vehicles · Active 61 of 90 days</div><div class="prog"><span style="width:68%"></span></div></div><span class="chip c-amber">Qualifying</span></div>
+    <div class="ref"><div><div class="co">[Company C]</div><div class="meta">60 vehicles · Gift card sent 07/18/2026</div></div><span class="chip c-green">Reward sent</span></div>
+    <div class="total"><span>Earned so far</span><span>$800</span></div>
+  </div>
+
+  <div class="p-foot"><a href="index.html#rules">Program rules</a><span>No gift cards at your company? Get a credit</span></div>
+</section>
+
+<div class="shell">
+  <nav class="side" aria-label="App">
+    <a class="on" href="#"><svg class="i"><use href="#i-dash"/></svg>Dashboard</a>
+    <a href="#"><svg class="i"><use href="#i-pin"/></svg>Map</a>
+    <a href="#"><svg class="i"><use href="#i-truck"/></svg>Assets</a>
+    <a href="#"><svg class="i"><use href="#i-wrench"/></svg>Maintenance</a>
+    <a href="#"><svg class="i"><use href="#i-file"/></svg>Reports</a>
+    <a class="refer-link" href="#" id="side-refer"><svg class="i"><use href="#i-gift"/></svg>Refer &amp; earn</a>
+  </nav>
+  <main class="main">
+    <h1>Dashboard</h1>
+    <p class="desc">Fleet overview</p>
+    <div class="grid4"><div class="sk"><div class="bar" style="width:50%"></div><div class="bar" style="width:30%;height:28px"></div></div><div class="sk"><div class="bar" style="width:50%"></div><div class="bar" style="width:30%;height:28px"></div></div><div class="sk"><div class="bar" style="width:50%"></div><div class="bar" style="width:30%;height:28px"></div></div><div class="sk"><div class="bar" style="width:50%"></div><div class="bar" style="width:30%;height:28px"></div></div></div>
+    <div class="sk big"><div class="bar" style="width:20%"></div></div>
+  </main>
+</div>
+<div class="label-note">Concept mock. App content is placeholder.</div>
+
+<script>
+const gift=document.getElementById('gift'),panel=document.getElementById('panel'),nudge=document.getElementById('nudge');
+function setOpen(o){panel.classList.toggle('hidden',!o);gift.setAttribute('aria-expanded',o);if(o){nudge.classList.add('hidden');document.getElementById('giftdot').classList.add('hidden')}}
+gift.onclick=()=>setOpen(panel.classList.contains('hidden'));
+document.getElementById('side-refer').onclick=e=>{e.preventDefault();setOpen(true)};
+document.getElementById('close').onclick=()=>setOpen(false);
+document.getElementById('nudge-x').onclick=()=>nudge.classList.add('hidden');
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected','false'));
+  t.setAttribute('aria-selected','true');
+  document.getElementById('tab-refer').classList.toggle('hidden',t.dataset.tab!=='refer');
+  document.getElementById('tab-mine').classList.toggle('hidden',t.dataset.tab!=='mine');
+});
+const youAmt={'5–9':100,'10–49':450,'50–99':800,'100+':1500};
+const fmt=n=>'$'+n.toLocaleString('en-US');
+document.getElementById('f').onsubmit=e=>{e.preventDefault();
+  e.target.classList.add('hidden');document.getElementById('done').classList.remove('hidden');document.getElementById('upsell').classList.remove('hidden')};
+document.querySelectorAll('.up-opt').forEach(o=>o.onclick=()=>{document.querySelectorAll('.up-opt').forEach(x=>x.setAttribute('aria-checked','false'));o.setAttribute('aria-checked','true')});
+document.getElementById('extend').onclick=()=>{['done','upsell'].forEach(i=>document.getElementById(i).classList.add('hidden'));document.getElementById('ext-done').classList.remove('hidden')};
+function resetRefer(){const f=document.getElementById('f');f.reset();f.classList.remove('hidden');['done','upsell','ext-done'].forEach(i=>document.getElementById(i).classList.add('hidden'))}
+document.getElementById('again').onclick=resetRefer;document.getElementById('again2').onclick=resetRefer;
+document.getElementById('copy').onclick=function(){navigator.clipboard&&navigator.clipboard.writeText('https://www.zonar.com/refer/[CODE]');this.textContent='Copied';setTimeout(()=>this.textContent='Copy',1800)};
+</script>
+</body>
+</html>

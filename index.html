@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zonar Refer &amp; Earn (proposed refresh)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#005BF8;--blue-d:#0049C6;--true:#00AEEF;--yellow:#FFD800;--green:#2E7D32;--red:#D32F2F;--ink:#212121;--muted:#5C5C5C;--line:#D9D9D9;--smoke:#F4F4F4;--tint:#EEF4FF}
+*{box-sizing:border-box}
+body{margin:0;font-family:Roboto,system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+a{color:var(--blue)}a:hover{color:var(--blue-d)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:10px;font:600 16px Roboto,sans-serif;text-decoration:none;border:0;cursor:pointer}
+.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue-d);color:#fff}
+.btn-white{background:#fff;color:var(--blue)}.btn-white:hover{background:var(--tint);color:var(--blue-d)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7)}.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+h1,h2,h3{margin:0;line-height:1.15}
+h2{font-size:clamp(28px,3.4vw,40px);font-weight:700}
+section{padding:88px 0}
+/* hero */
+.hero{color:#fff;padding:0 0 104px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;flex-wrap:wrap}
+.nav img{height:32px;width:auto;display:block}
+.nav-links{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:#fff;text-decoration:none;font-weight:500}
+.nav-links a:hover{color:#fff;text-decoration:underline}
+.nav-links a.btn-white,.nav-links a.btn-white:hover{color:var(--blue);text-decoration:none}
+.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:56px;align-items:center;padding-top:56px}
+.hero .eyebrow{color:var(--yellow)}
+.hero h1{font-size:clamp(36px,5vw,60px);font-weight:800;margin:14px 0 20px;letter-spacing:-.01em}
+.hero p.lead{font-size:20px;max-width:560px;margin:0 0 32px;color:#fff}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.hero{position:relative;background:#0B1530 url("https://images.unsplash.com/photo-1766785368863-f2188a8c8b32?w=2000&q=80&auto=format&fit=crop") center/cover no-repeat;isolation:isolate}
+.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(6,14,34,.92) 0%,rgba(6,14,34,.72) 48%,rgba(6,14,34,.30) 100%)}
+.hero-visual{position:relative;max-width:480px;justify-self:end;width:100%;padding-top:36px}
+.float-note{position:absolute;top:0;left:0;z-index:2;display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:14px;padding:12px 16px;box-shadow:0 10px 15px rgba(0,0,0,.2)}
+.float-note b{display:block;font-size:15px}
+.float-note small{display:block;font-size:13px;color:#E6ECF5}
+.fn-ico{width:38px;height:38px;border-radius:10px;background:var(--yellow);color:var(--ink);display:grid;place-items:center;flex:none}
+.hero-visual .calc{margin-top:28px}
+.hero .eyebrow{display:inline-block;background:rgba(255,216,0,.14);border:1px solid rgba(255,216,0,.45);padding:6px 12px;border-radius:999px}
+.photo-credit{position:absolute;right:16px;bottom:10px;font-size:11px;color:rgba(255,255,255,.7)}
+.photo-credit a{color:rgba(255,255,255,.85)}
+.calc{background:#fff;color:var(--ink);border-radius:16px;padding:32px;box-shadow:0 20px 25px rgba(0,0,0,.15)}
+.calc h3{font-size:20px;font-weight:700;margin-bottom:4px}
+.calc .sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.pill{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:500 15px Roboto,sans-serif;color:var(--ink);cursor:pointer}
+.x3{font-size:11px;font-weight:700;background:var(--yellow);color:var(--ink);border-radius:999px;padding:2px 7px;margin-left:6px}
+.pill[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.amt{background:var(--smoke);border-radius:12px;padding:20px}
+.amt.you{background:var(--tint)}
+.amt small{display:block;font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.amt b{display:block;font-size:44px;font-weight:800;line-height:1.1;margin-top:6px}
+.amt.you b{color:var(--blue)}
+.ext{display:flex;gap:10px;align-items:flex-start;margin-top:12px;padding:12px 14px;border:1px dashed #9DBBF5;border-radius:12px;font-size:14px;color:var(--ink)}
+.ext svg{color:var(--blue);margin-top:1px}
+.ext b{color:var(--blue)}
+.calc .fine{font-size:13px;color:var(--muted);margin:16px 0 0}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:40px;counter-reset:s}
+.step{border:1px solid var(--line);border-radius:12px;padding:28px;position:relative}
+.step .ico{width:48px;height:48px;border-radius:12px;background:var(--tint);color:var(--blue);display:grid;place-items:center;margin-bottom:18px}
+.step .num{position:absolute;top:24px;right:24px;font-size:14px;font-weight:700;color:var(--muted)}
+.step h3{font-size:19px;margin-bottom:8px}
+.step p{margin:0;color:var(--muted)}
+.section-head{max-width:720px}
+.section-head p{font-size:18px;color:var(--muted);margin:12px 0 0}
+/* tiers */
+.band{background:var(--smoke)}
+.tbl-box{overflow-x:auto;margin-top:36px;background:#fff;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:560px}
+th,td{text-align:left;padding:18px 24px;border-bottom:1px solid var(--line)}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;background:#fafafa}
+tr:last-child td{border-bottom:0}
+td.money{font-weight:700;font-size:18px}
+td.money.you{color:var(--blue)}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:#FFF7CC;color:#5C4A00;margin-left:8px;vertical-align:middle}
+.note-row{display:flex;gap:12px;align-items:flex-start;margin-top:20px;color:var(--muted)}
+.extend{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px;margin-top:40px;background:var(--ink);color:#fff;border-radius:16px;padding:40px}
+.extend .eyebrow{color:var(--yellow)}
+.extend h3{font-size:26px;margin:10px 0 14px}
+.extend p{color:#E0E0E0;margin:0 0 12px}
+.extend-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+.xcard{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:18px}
+.xcard.best{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.xcard small{display:block;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.xcard b{display:block;font-size:44px;font-weight:800;line-height:1.1;margin:4px 0}
+.xcard span{font-size:13px}
+.xhow{grid-column:1/-1;font-size:14px;color:#E0E0E0;padding:4px 2px}
+.xhow b{color:#fff}
+/* form */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:48px;margin-top:40px;align-items:start}
+form{border:1px solid var(--line);border-radius:16px;padding:32px}
+fieldset{border:0;padding:0;margin:0 0 28px}
+legend{font-size:18px;font-weight:700;margin-bottom:16px;padding:0}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:16px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+input,select,textarea{width:100%;min-height:46px;padding:10px 14px;border:1px solid #B5B5B5;border-radius:8px;font:400 16px Roboto,sans-serif;color:var(--ink);background:#fff}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(0,91,248,.3);border-color:var(--blue)}
+.help{font-size:13px;color:var(--muted);margin-top:4px}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px;margin:10px 0}
+.check input{width:20px;min-height:20px;height:20px;margin-top:2px;flex:none}
+.aside{display:flex;flex-direction:column;gap:20px}
+.card{border:1px solid var(--line);border-radius:12px;padding:24px;background:#fff}
+.card h3{font-size:18px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+ul.ticks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+ul.ticks li{display:flex;gap:10px;align-items:flex-start}
+ul.ticks.ok svg{color:var(--green)}
+ul.ticks.no svg{color:var(--red)}
+.share{display:flex;gap:8px;flex-wrap:wrap}
+.share-link{flex:1 1 220px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:0 12px;min-height:46px;background:var(--smoke);font-family:'Roboto Mono',monospace;font-size:14px;color:var(--muted)}
+.btn-outline{background:#fff;color:var(--blue);border:1.5px solid var(--blue);min-height:46px}
+.btn-outline:hover{background:var(--tint)}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;margin-top:40px}
+/* tracker */
+.track{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0;margin-top:40px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.track div{padding:24px;border-right:1px solid var(--line)}
+.track div:last-child{border-right:0}
+.track b{display:flex;gap:8px;align-items:center;font-size:16px;margin-bottom:6px}
+.track span{color:var(--muted);font-size:14px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--blue);flex:none}
+/* faq */
+.faq{margin-top:32px;border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:18px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+details[open] summary svg{transform:rotate(180deg)}
+details p{margin:0 0 22px;color:var(--muted);max-width:820px}
+.cta-band{background:var(--ink);color:#fff;text-align:center}
+.cta-band p{color:#E0E0E0;font-size:18px;margin:12px auto 28px;max-width:560px}
+footer{padding:32px 0;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:14px 20px;border-radius:10px;display:none}
+@media (max-width:640px){section{padding:64px 0}.calc{padding:24px}.float-note{left:12px;right:12px}.amt b{font-size:34px}.nav-links a:not(.btn){display:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-userplus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6"/><path d="M22 11h-6"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+<symbol id="i-gov" viewBox="0 0 24 24"><path d="M3 22h18"/><path d="M6 18v-7"/><path d="M10 18v-7"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M12 2 20 7H4Z"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+</svg>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzQ5IiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDM0OSAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJab25hciIgeG1sbnM6YzJwYT0iaHR0cDovL2MycGEub3JnL21hbmlmZXN0Ij4KPHBhdGggZD0iTTEyOC45MTIgMy45Mjc3OEMxMjIuNzQ0IDEuMzIyMjIgMTE2LjE5OCAwIDEwOS40NDcgMEMxMDIuNjk1IDAgOTYuMTQzNiAxLjMyMjIyIDg5Ljk4MTEgMy45Mjc3OEM4NC4wMjQyIDYuNDQ0NDQgNzguNjc4NiAxMC4wNSA3NC4wODMxIDE0LjY0NDRDNjkuNDg3NyAxOS4yMzg5IDY1Ljg4MTMgMjQuNTgzMyA2My4zNjQxIDMwLjUzODlDNjAuNzU3OSAzNi43MDU2IDU5LjQzNTQgNDMuMjUgNTkuNDM1NCA1MEM1OS40MzU0IDU2Ljc1IDYwLjc1NzkgNjMuMyA2My4zNjQxIDY5LjQ2MTFDNjUuODgxMyA3NS40MTY3IDY5LjQ4NzcgODAuNzYxMSA3NC4wODMxIDg1LjM1NTZDNzguNjc4NiA4OS45NSA4NC4wMjQyIDkzLjU1NTYgODkuOTgxMSA5Ni4wNzIyQzk2LjE0OTIgOTguNjc3OCAxMDIuNjk1IDEwMCAxMDkuNDQ3IDEwMEMxMTYuMTk4IDEwMCAxMjIuNzUgOTguNjc3OCAxMjguOTEyIDk2LjA3MjJDMTM0Ljg2OSA5My41NTU2IDE0MC4yMTUgODkuOTUgMTQ0LjgxIDg1LjM1NTZDMTQ5LjQwNSA4MC43NjExIDE1My4wMTIgNzUuNDE2NyAxNTUuNTI5IDY5LjQ2MTFDMTU4LjEzNSA2My4yOTQ0IDE1OS40NTggNTYuNzUgMTU5LjQ1OCA1MEMxNTkuNDU4IDQzLjI1IDE1OC4xMzUgMzYuNyAxNTUuNTI5IDMwLjUzODlDMTUzLjAxMiAyNC41ODMzIDE0OS40MDUgMTkuMjM4OSAxNDQuODEgMTQuNjQ0NEMxNDAuMjE1IDEwLjA1IDEzNC44NjkgNi40NDQ0NCAxMjguOTEyIDMuOTI3NzhaIiBmaWxsPSIjMDA5RkRGIi8+CjxwYXRoIGQ9Ik0xMDkuNDQ3IDkxLjI4ODhDMTMyLjM2NSA5MS4yODg4IDE1MC45NDUgNzIuNzEzNiAxNTAuOTQ1IDQ5Ljc5OTlDMTUwLjk0NSAyNi44ODYyIDEzMi4zNjUgOC4zMTEwNCAxMDkuNDQ3IDguMzExMDRDODYuNTI3OCA4LjMxMTA0IDY3Ljk0ODUgMjYuODg2MiA2Ny45NDg1IDQ5Ljc5OTlDNjcuOTQ4NSA3Mi43MTM2IDg2LjUyNzggOTEuMjg4OCAxMDkuNDQ3IDkxLjI4ODhaIiBmaWxsPSIjMzNCMkU1Ii8+CjxwYXRoIGQ9Ik0xMDkuNDQ3IDgyLjYyNzlDMTI3LjQ3IDgyLjYyNzkgMTQyLjA4MiA2OC4wMTk5IDE0Mi4wODIgNTAuMDAwMUMxNDIuMDgyIDMxLjk4MDMgMTI3LjQ3IDE3LjM3MjMgMTA5LjQ0NyAxNy4zNzIzQzkxLjQyMjcgMTcuMzcyMyA3Ni44MTE1IDMxLjk4MDMgNzYuODExNSA1MC4wMDAxQzc2LjgxMTUgNjguMDE5OSA5MS40MjI3IDgyLjYyNzkgMTA5LjQ0NyA4Mi42Mjc5WiIgZmlsbD0iIzY2QzVFQyIvPgo8cGF0aCBkPSJNMTMzLjIxOSA1MC4wMDAxQzEzMy4yMTkgNjMuMTI3OCAxMjIuNTc3IDczLjc2NjcgMTA5LjQ0NyA3My43NjY3Qzk2LjMxNTggNzMuNzY2NyA4NS42NzQ2IDYzLjEyNzggODUuNjc0NiA1MC4wMDAxQzg1LjY3NDYgMzYuODcyMyA5Ni4zMTU4IDI2LjIzMzQgMTA5LjQ0NyAyNi4yMzM0QzEyMi41NzcgMjYuMjMzNCAxMzMuMjE5IDM2Ljg3MjMgMTMzLjIxOSA1MC4wMDAxWiIgZmlsbD0iIzk5RDlGMiIvPgo8cGF0aCBkPSJNMTI0LjM1IDUwLjAwNTZDMTI0LjM1IDU4LjIzMzQgMTE3LjY3NiA2NC45IDEwOS40NTIgNjQuOUMxMDEuMjI4IDY0LjkgOTQuNTU0MyA1OC4yMzM0IDk0LjU1NDMgNTAuMDA1NkM5NC41NTQzIDQxLjc3NzggMTAxLjIyOCAzNS4xMTY3IDEwOS40NTIgMzUuMTE2N0MxMTcuNjc2IDM1LjExNjcgMTI0LjM1IDQxLjc4MzQgMTI0LjM1IDUwLjAwNTZaIiBmaWxsPSIjQ0NFQ0Y5Ii8+CjxwYXRoIGQ9Ik0xMDguMjkxIDQ4LjM0NDVDMTA3LjY2MyA0OC45ODMzIDEwNy42NjggNTAuMDA1NiAxMDguMzA3IDUwLjYzMzNMMTQ0LjE0MyA4Ni4wMDU2QzE0NC4zMzIgODYuMTg4OSAxNDYuNTg4IDgzLjg2NjcgMTQ2LjM5OSA4My42ODg5TDExMC41OCA0OC4zMjc4QzEwOS45NDEgNDcuNyAxMDguOTE5IDQ3LjcwNTYgMTA4LjI5MSA0OC4zNDQ1WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTExNS41MTUgNTAuMDExQzExNS41MTUgNTMuMzYxIDExMi43OTcgNTYuMDc3NyAxMDkuNDQ3IDU2LjA3NzdDMTA2LjA5NiA1Ni4wNzc3IDEwMy4zNzkgNTMuMzYxIDEwMy4zNzkgNTAuMDExQzEwMy4zNzkgNDYuNjYxIDEwNi4wOTYgNDMuOTQ0MyAxMDkuNDQ3IDQzLjk0NDNDMTEyLjc5NyA0My45NDQzIDExNS41MTUgNDYuNjYxIDExNS41MTUgNTAuMDExWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTAgNzguODQ5OEg0Ny43NjYyTDU3LjM2ODMgNjMuOTE2NUgyNy4yMzM4TDU3LjIzNSAyMS43MTA5SDEyLjMxOTRMMi4wODkzNSAzNi42Mzg3SDI5LjM4NDNMMCA3OC44NDk4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTE2Ny4wNDMgMTkuNTYxVjc4Ljg4ODhIMTgxLjg2OFY0OS45MTY2TDIyMi43MDUgODAuNDM4OFYyMS4xNDk5SDIwNy44OTFWNTAuNDgzM0wxNjcuMDQzIDE5LjU2MVoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0yNDQuMzM4IDc4Ljg0OThIMjI2LjY3OEwyNTguMjM1IDIwLjEyMjFMMjkyLjIwNCA3OC44NDk4SDI3NC4wMTFMMjU4LjIzNSA1MC41NTU0TDI0NC4zMzggNzguODQ5OFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMzM2LjIxNCA1OS4zMTY2TDM0OSA3OC45MTFIMzMzLjkxOUwzMTYuMTE1IDUyLjE3MjFIMzIwLjQ5OUMzMjQuODYxIDUxLjcyNzcgMzI4LjIwNiA0Ny45NjY2IDMyOC4yMDYgNDMuNDQ5OUMzMjguMjA2IDM4LjYzMzIgMzI0LjMzOSAzNC42MDU1IDMxOS41NiAzNC42MDU1SDMxMC4xNjlWNzguODQ0M0gyOTUuNTk0VjIxLjE0OTlIMzIwLjcyN0MzMzIuODE5IDIxLjE0OTkgMzQyLjYyNiAzMS4zNjEgMzQyLjYyNiA0My41NTU1QzM0Mi42MjYgNDkuNjk0MyAzNDAuMTkyIDU1LjI4ODggMzM2LjIwOCA1OS4zMjIxTDMzNi4yMTQgNTkuMzE2NloiIGZpbGw9IndoaXRlIi8+CjxtZXRhZGF0YT48YzJwYTptYW5pZmVzdD5BQUFXZ21wMWJXSUFBQUFlYW5WdFpHTXljR0VBRVFBUWdBQUFxZ0E0bTNFRFl6SndZUUFBQUJaY2FuVnRZZ0FBQUVkcWRXMWtZekp0WVFBUkFCQ0FBQUNxQURpYmNRTjFjbTQ2WXpKd1lUbzNaakJrWWpRMVl5MDRNMk5pTFRSbE5HUXRZVEkyTVMxbE1HTXpZelJrTURsa01URUFBQUFEbDJwMWJXSUFBQUFwYW5WdFpHTXlZWE1BRVFBUWdBQUFxZ0E0bTNFRFl6SndZUzVoYzNObGNuUnBiMjV6QUFBQUFMeHFkVzFpQUFBQVJHcDFiV1JqWW05eUFCRUFFSUFBQUtvQU9KdHhFMk15Y0dFdWFXNW5jbVZrYVdWdWRDNTJNd0FBQUFBWVl6SnphRkNvNUlNV1o0MVlqZERTclZFb25UUUFBQUJ3WTJKdmNxTnBaR002Wm05eWJXRjBiV2x0WVdkbEwzTjJaeXQ0Yld4cWFXNXpkR0Z1WTJWSlJIZ3NlRzF3T21scFpEbzVaamMyWmprNVlTMHlZek0xTFRSaU1ERXRPR00zTXkxbVltTmhPV1k1TVRRMU9HVnNjbVZzWVhScGIyNXphR2x3YUhCaGNtVnVkRTltQUFBQjRtcDFiV0lBQUFCQmFuVnRaR05pYjNJQUVRQVFnQUFBcWdBNG0zRVRZekp3WVM1aFkzUnBiMjV6TG5ZeUFBQUFBQmhqTW5Ob2RKRFkrdktIZzA2VGF5TVlhT0JLMHdBQUFabGpZbTl5b21kaFkzUnBiMjV6Z3FKbVlXTjBhVzl1YTJNeWNHRXViM0JsYm1Wa2FuQmhjbUZ0WlhSbGNuT2hhMmx1WjNKbFpHbGxiblJ6Z2FKamRYSnNlQzF6Wld4bUkycDFiV0ptUFdNeWNHRXVZWE56WlhKMGFXOXVjeTlqTW5CaExtbHVaM0psWkdsbGJuUXVkak5rYUdGemFGZ2dRTWY5WW5JYWM0aXg3Y1VtclV6RTZHVmpHTWVmNmEzV3IxQTNCRmhONmp5a1ptRmpkR2x2Ym5nZFkyOXRMbUZ1ZEdoeWIzQnBZeTVqYkdGMVpHVXVjSEp2ZG1sa1pXUnFjR0Z5WVcxbGRHVnljNkY0SDJOdmJTNWhiblJvY205d2FXTXViM0pwWjJsdUxXTnZibVpwWkdWdVkyVm5kVzVyYm05M2JtdGtaWE5qY21sd2RHbHZibmhtUTJ4aGRXUmxJSEJ5YjNacFpHVmtJSFJvYVhNZ1ptbHNaU0JoZENCMGFHVWdjbVZ4ZFdWemRDQnZaaUJoSUhWelpYSWdZVzVrSUcxaGVTQm9ZWFpsSUdOeVpXRjBaV1FnYjNJZ2JXOWthV1pwWldRZ2RHaGxJR1pwYkdVZ1kyOXVkR1Z1ZEhNdWJYTnZablIzWVhKbFFXZGxiblNoWkc1aGJXVm1RMnhoZFdSbGNtRnNiRUZqZEdsdmJuTkpibU5zZFdSbFpQVUFBQURJYW5WdFlnQUFBRUJxZFcxa1kySnZjZ0FSQUJDQUFBQ3FBRGliY1JOak1uQmhMbWhoYzJndVpHRjBZUUFBQUFBWVl6SnphQWpRYUZtaXlSUW1sdVhUTW1ZWTROVUFBQUNBWTJKdmNxVmpZV3huWm5Ob1lUSTFObU53WVdSTUFBQUFBQUFBQUFBQUFBQUFaR2hoYzJoWUlDOVhqWkpVdjJaTFpndUhKQXo0enVjeVdjV0ZIK2IrVkZaN0hGMVF6ODZBWkc1aGJXVnVhblZ0WW1ZZ2JXRnVhV1psYzNScVpYaGpiSFZ6YVc5dWM0R2laWE4wWVhKMEdRdnpabXhsYm1kMGFCa2VCQUFBQWo1cWRXMWlBQUFBSjJwMWJXUmpNbU5zQUJFQUVJQUFBS29BT0p0eEEyTXljR0V1WTJ4aGFXMHVkaklBQUFBQ0QyTmliM0tsWTJGc1oyWnphR0V5TlRacGMybG5ibUYwZFhKbGVFMXpaV3htSTJwMWJXSm1QUzlqTW5CaEwzVnlianBqTW5CaE9qZG1NR1JpTkRWakxUZ3pZMkl0TkdVMFpDMWhNall4TFdVd1l6TmpOR1F3T1dReE1TOWpNbkJoTG5OcFoyNWhkSFZ5WldwcGJuTjBZVzVqWlVsRWVDeDRiWEE2YVdsa09qSXdNRGxoT1daa0xURXpaVEF0TkRneE1TMWhZVFkxTFdGaU1USTJZV0ptWVRWaFpYSmpjbVZoZEdWa1gyRnpjMlZ5ZEdsdmJuT0RvbU4xY214NExYTmxiR1lqYW5WdFltWTlZekp3WVM1aGMzTmxjblJwYjI1ekwyTXljR0V1YVc1bmNtVmthV1Z1ZEM1Mk0yUm9ZWE5vV0NCQXgvMWljaHB6aUxIdHhTYXRUTVRvWldNWXg1L3ByZGF2VURjRVdFM3FQS0pqZFhKc2VDcHpaV3htSTJwMWJXSm1QV015Y0dFdVlYTnpaWEowYVc5dWN5OWpNbkJoTG1GamRHbHZibk11ZGpKa2FHRnphRmdnWkJuTDZKRUVBS2tWV0VhcGVOTXQzdEpVakExZVkvWjZibmRoejhJKzVqMmlZM1Z5YkhncGMyVnNaaU5xZFcxaVpqMWpNbkJoTG1GemMyVnlkR2x2Ym5Ndll6SndZUzVvWVhOb0xtUmhkR0ZrYUdGemFGZ2dXbXVUMjZBcUhYc1U0b3Z6T1lpbzRlN2szR2lyenZtTTU5OFoweGNmaFF0MFkyeGhhVzFmWjJWdVpYSmhkRzl5WDJsdVptK2paRzVoYldWdlFXNTBhSEp2Y0dsaklFWnBiR1Z6WjNabGNuTnBiMjVsTVM0d0xqQnJjM0JsWTFabGNuTnBiMjVsTWk0MExqQUFBQkE0YW5WdFlnQUFBQ2hxZFcxa1l6Smpjd0FSQUJDQUFBQ3FBRGliY1FOak1uQmhMbk5wWjI1aGRIVnlaUUFBQUJBSVkySnZjdEtFV1FJU29nRW1HQ0ZaQWdvd2dnSUdNSUlCamFBREFnRUNBaFJBNWFBSzdzSTUwTDY0Zy9vR1FnVTlaMVVUQURBS0JnZ3Foa2pPUFFRREF6QkpNUmN3RlFZRFZRUUtFdzVCYm5Sb2NtOXdhV01zSUZCQ1F6RXVNQ3dHQTFVRUF4TWxRVzUwYUhKdmNHbGpJRU52Ym5SbGJuUWdRM0psWkdWdWRHbGhiSE1nVW05dmRDQkRRVEFlRncweU5qQTRNRGN4T0RRek5UWmFGdzB5T0RBNE1EWXhPVFF6TlRaYU1FUXhGekFWQmdOVkJBb1REa0Z1ZEdoeWIzQnBZeXdnVUVKRE1Ta3dKd1lEVlFRREV5QkJiblJvY205d2FXTWdRMnhoZFdSbElFTnZiblJsYm5RZ1UybG5ibWx1WnpCWk1CTUdCeXFHU000OUFnRUdDQ3FHU000OUF3RUhBMElBQkpoNkNtdkxVQmdGRk5VMHZVS2xPVnRFNmRqZDE3TDVTdXdYMExlbUZpc0JNM2RrZC8zY3lqeEZBM1FvNVM0NmZYMC9paFkwVlo3bWZiOUtGNzAzdDVPaldEQldNQTRHQTFVZER3RUIvd1FFQXdJSGdEQVZCZ05WSFNVRURqQU1CZ29yQmdFRUFZUG9YZ0lCTUF3R0ExVWRFd0VCL3dRQ01BQXdId1lEVlIwakJCZ3dGb0FVemxIaUJJRk9aRnNqK09QRXo1bytuTUhYWE1Jd0NnWUlLb1pJemowRUF3TURad0F3WkFJd01YTWRGSjRCZXRMTFZZN09SdUU5bm9xYmJBWk9abi9hQXJYeVR3RkFaZktyUHp4RjJ2UG9KTmYxK1VDZGcxWEdBakJ3WDF6ZDlXR3FZa3FtTDVTRnF3MVF5U2pyMXpKZnBKTTkrMXJkRHdTUExNT1BPakt1aVhqb1UvcFVVZUc5UndtaFkzQmhaRmtObmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFQWllRSzhxbmd5bklSb0tVRUxyUDZ5Mk9CZ0U4T3BzdzkrOHJtRHhwZnQ4OFlkemNIWGZhc25sMHM0YnQ4WG9SQi9GM1RKOE44N1Z4QVNFVVZLODJzZjZDSHc9PC9jMnBhOm1hbmlmZXN0PjwvbWV0YWRhdGE+PC9zdmc+Cg==" alt="Zonar">
+      <div class="nav-links">
+        <a href="#how">How it works</a>
+        <a href="#rewards">Rewards</a>
+        <a href="#rules">Who qualifies</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn-white" href="#refer">Refer a fleet</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Zonar Refer &amp; Earn</div>
+        <h1>Know a fleet that should be on Zonar? Refer them and you both earn.</h1>
+        <p class="lead">Send us a name. If they become a Zonar customer, you get up to $1,500. They get up to $500, doubled on a 2-year contract and tripled on a 3-year contract. It takes about two minutes.</p>
+        <div class="cta-row">
+          <a class="btn btn-white" href="#refer"><svg class="i"><use href="#i-userplus"/></svg>Refer a fleet</a>
+          <a class="btn btn-ghost" href="#rewards">See all rewards</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+      <div class="float-note" aria-hidden="true">
+        <span class="fn-ico"><svg class="i"><use href="#i-gift"/></svg></span>
+        <span><b>Plus up to 2 months free</b><small>when you extend your own Zonar agreement</small></span>
+      </div>
+      <div class="calc" aria-labelledby="calc-h">
+        <h3 id="calc-h">What could you earn?</h3>
+        <p class="sub">Pick the size of the fleet you're referring.</p>
+        <div class="pills" role="group" aria-label="Fleet size">
+          <button class="pill" type="button" data-t="0" aria-pressed="false">5–9</button>
+          <button class="pill" type="button" data-t="1" aria-pressed="true">10–49</button>
+          <button class="pill" type="button" data-t="2" aria-pressed="false">50–99</button>
+          <button class="pill" type="button" data-t="3" aria-pressed="false">100+</button>
+        </div>
+        <p class="sub" style="margin:-8px 0 10px">Contract length they sign</p>
+        <div class="pills" role="group" aria-label="Contract length">
+          <button class="pill term" type="button" data-m="1" aria-pressed="true">1 year</button>
+          <button class="pill term" type="button" data-m="2" aria-pressed="false">2 years <span class="x3">2x</span></button>
+          <button class="pill term" type="button" data-m="3" aria-pressed="false">3 years <span class="x3">3x</span></button>
+        </div>
+        <div class="split">
+          <div class="amt you"><small>You get</small><b id="you">$450</b></div>
+          <div class="amt"><small>They get</small><b id="them">$100</b></div>
+        </div>
+        <div class="ext"><svg class="i"><use href="#i-cal"/></svg><span>Already a Zonar customer? Extend your own agreement and get free service too: <b>1 month free</b> for 24 more months or <b>2 months free</b> for 36, on every telematics and camera subscription.</span></div>
+        <p class="fine" id="fine">Paid as a digital gift card after they've been active for 90 days. Vehicles counted on the initial contract.</p>
+      </div>
+      </div>
+    </div>
+  </div>
+  <span class="photo-credit">Photo: <a href="https://unsplash.com/photos/two-semi-trucks-driving-on-a-highway-P0bVatS8Jdw">Bhargav Panchal on Unsplash</a></span>
+</header>
+
+<main>
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Four steps from a name to a reward</h2>
+      <p>You make the introduction. We handle the rest and keep you posted along the way.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="num">01</span><div class="ico"><svg class="i"><use href="#i-userplus"/></svg></div><h3>Tell us who</h3><p>Fill out the short form, share your link, or send our ready-made email intro.</p></div>
+      <div class="step"><span class="num">02</span><div class="ico"><svg class="i"><use href="#i-msg"/></svg></div><h3>We reach out</h3><p>A Zonar fleet specialist contacts them to learn about their fleet. No pressure.</p></div>
+      <div class="step"><span class="num">03</span><div class="ico"><svg class="i"><use href="#i-truck"/></svg></div><h3>They go live</h3><p>They sign an agreement of 12 months or more within 30 days and pay their first invoice.</p></div>
+      <div class="step"><span class="num">04</span><div class="ico"><svg class="i"><use href="#i-gift"/></svg></div><h3>You both get paid</h3><p>After 90 active days, rewards go out as e-gift cards within 30 days.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="rewards" class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Rewards</div>
+      <h2>Bigger fleets, bigger rewards</h2>
+      <p>Rewards are based on the number of vehicles in the referred company's initial contract.</p>
+    </div>
+    <div class="tbl-box">
+      <table>
+        <thead><tr><th scope="col">Fleet size</th><th scope="col">You get</th><th scope="col">They get, 1-year contract</th><th scope="col">2-year contract</th><th scope="col">3-year contract</th></tr></thead>
+        <tbody>
+          <tr><td>5–9 vehicles</td><td class="money you">$100</td><td class="money">$50</td><td class="money">$100</td><td class="money">$150</td></tr>
+          <tr><td>10–49 vehicles</td><td class="money you">$450</td><td class="money">$100</td><td class="money">$200</td><td class="money">$300</td></tr>
+          <tr><td>50–99 vehicles</td><td class="money you">$800</td><td class="money">$200</td><td class="money">$400</td><td class="money">$600</td></tr>
+          <tr><td>100+ vehicles</td><td class="money you">$1,500</td><td class="money">$500</td><td class="money">$1,000</td><td class="money">$1,500</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="extend">
+      <div class="extend-copy">
+        <div class="eyebrow">For Zonar customers</div>
+        <h3>Refer a fleet, extend your agreement, get up to 2 months free</h3>
+        <p>When you refer a company, you can also extend your own Zonar agreement. Extend 24 months and get 1 month free on each of your telematics and camera subscriptions. Extend 36 months and get 2 months free. The more vehicles you run with Zonar, the more you save.</p>
+        <p>Your credit doesn't depend on the company you referred. Sign the extension and the credit is yours, even if they don't become a customer. Your gift card is paid once they sign. Automatic 12-month renewals don't count, so extensions start at 24 months.</p>
+        <p>Your free service is applied as a credit spread across your next 12 invoices, starting right after you sign.</p>
+      </div>
+      <div class="extend-cards">
+        <div class="xcard"><small>Extend 24 months</small><b>1 month</b><span>free on each telematics and camera subscription</span></div>
+        <div class="xcard best"><small>Extend 36 months</small><b>2 months</b><span>free on each telematics and camera subscription</span></div>
+        <div class="xhow"><b>How to extend:</b> tick the box on the referral form or tap Extend in the Zonar app. Your Zonar team sends a pre-filled extension for e-signature. No new contract to review, same terms.</div>
+      </div>
+    </div>
+    <div class="note-row"><svg class="i"><use href="#i-gov"/></svg><span>Public sector organizations and their employees receive an invoice credit in place of a gift card.</span></div>
+  </div>
+</section>
+
+<section id="refer">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Refer a fleet</div>
+      <h2>Send us your referral</h2>
+      <p>We'll email you when they become a customer and again when your reward is on the way.</p>
+    </div>
+    <div class="form-grid">
+      <form id="ref-form" novalidate>
+        <fieldset>
+          <legend>About you</legend>
+          <div class="row">
+            <div><label for="r-first">First name</label><input id="r-first" autocomplete="given-name" required></div>
+            <div><label for="r-last">Last name</label><input id="r-last" autocomplete="family-name" required></div>
+          </div>
+          <div class="row">
+            <div><label for="r-email">Email</label><input id="r-email" type="email" autocomplete="email" required><div class="help">Your reward is sent here, so double-check it.</div></div>
+            <div><label for="r-type">I am a</label><select id="r-type"><option>Zonar customer</option><option>Zonar partner</option><option>Industry contact</option></select></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>About the company you're referring</legend>
+          <div class="row">
+            <div><label for="c-name">Company name</label><input id="c-name" required></div>
+            <div><label for="c-size">Number of vehicles</label><select id="c-size"><option>5–9</option><option selected>10–49</option><option>50–99</option><option>100+</option></select></div>
+          </div>
+          <div class="row">
+            <div><label for="c-first">Contact first name</label><input id="c-first" required></div>
+            <div><label for="c-last">Contact last name</label><input id="c-last" required></div>
+          </div>
+          <div class="row">
+            <div><label for="c-email">Contact email or phone</label><input id="c-email" required><div class="help">Helps us reach them quickly.</div></div>
+          </div>
+          <div><label for="c-notes">Anything we should know? <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea id="c-notes" placeholder="What they haul, what they use today, best time to call"></textarea></div>
+          <label class="check"><input type="checkbox"> I've let them know Zonar will be reaching out</label>
+        </fieldset>
+        <fieldset>
+          <legend>Your reward</legend>
+          <label class="check"><input type="checkbox" id="x-ext"> I'm a Zonar customer and I'd like to extend my agreement for a bill credit</label>
+          <div class="row" id="x-term" style="margin:6px 0 10px 30px"><div><label for="x-len">Extend by</label><select id="x-len"><option>24 months (1 month free)</option><option>36 months (2 months free)</option></select><div class="help">We'll send a pre-filled extension for e-signature.</div></div></div>
+          <label class="check"><input type="checkbox"> I can't accept a gift card. Apply my reward as a credit on my company's account.</label>
+          <label class="check"><input type="checkbox" required> I've read and agree to the <a href="#terms">program terms</a></label>
+        </fieldset>
+        <button class="btn btn-primary" type="submit"><svg class="i"><use href="#i-gift"/></svg>Submit referral</button>
+      </form>
+      <div class="aside">
+        <div class="card">
+          <h3><svg class="i" style="color:var(--blue)"><use href="#i-shield"/></svg>Before you submit</h3>
+          <ul class="ticks ok">
+            <li><svg class="i"><use href="#i-check"/></svg>They're new to Zonar, not a current or past customer</li>
+            <li><svg class="i"><use href="#i-check"/></svg>They aren't already talking with a Zonar fleet specialist</li>
+            <li><svg class="i"><use href="#i-check"/></svg>They run 5 or more vehicles</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Your email address is correct</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><svg class="i" style="color:var(--blue)"><use href="#i-link"/></svg>Rather share a link?</h3>
+          <p style="margin:0 0 14px;color:var(--muted)">Send your personal link. Anyone who signs up through it is tracked to you automatically.</p>
+          <div class="share">
+            <div class="share-link">zonar.com/refer/[YOUR-CODE]</div>
+            <button class="btn btn-outline" type="button" data-copy="https://www.zonar.com/refer/[YOUR-CODE]">Copy link</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3><svg class="i" style="color:var(--blue)"><use href="#i-mail"/></svg>Or send an email intro</h3>
+          <p style="margin:0 0 14px;color:var(--muted)">We wrote it for you. Copy it, add their name, and send it from your own inbox.</p>
+          <button class="btn btn-outline" type="button" data-copy="Subject: An introduction to Zonar&#10;&#10;Hi [Name],&#10;&#10;We use Zonar to run our fleet and it's made a real difference for us. I think it could help your team too. I've passed your name along, and someone from Zonar will reach out to you. If you become a customer, you'll get a reward as well.&#10;&#10;[Your name]">Copy email template</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rules" class="band">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Who qualifies</div>
+      <h2>Quick check before you refer</h2>
+    </div>
+    <div class="rules">
+      <div class="card">
+        <h3>Counts as a referral</h3>
+        <ul class="ticks ok">
+          <li><svg class="i"><use href="#i-check"/></svg>A business that's new to Zonar</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Signs an agreement of 12 months or more within 30 days of being contacted</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Pays its first invoice and stays active for 90 days</li>
+          <li><svg class="i"><use href="#i-check"/></svg>You were the first person to refer them</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Doesn't count</h3>
+        <ul class="ticks no">
+          <li><svg class="i"><use href="#i-x"/></svg>A current or past Zonar customer</li>
+          <li><svg class="i"><use href="#i-x"/></svg>A company already working with a Zonar fleet specialist, demo, or trial</li>
+          <li><svg class="i"><use href="#i-x"/></svg>A company that doesn't sign, or cancels within 90 days</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><svg class="i" style="color:var(--blue)"><use href="#i-gov"/></svg>Public sector</h3>
+        <p style="margin:0;color:var(--muted)">Government and public sector (SLED) organizations can qualify. Rewards are applied as a credit on the next invoice. We don't send payments to public sector employees, so if you work in the public sector your reward is also issued as a credit. The same goes for anyone whose employer doesn't allow them to accept gift cards.</p>
+      </div>
+    </div>
+    <div class="track" aria-label="Referral status stages">
+      <div><b><span class="dot"></span>Submitted</b><span>We confirm it's a new referral</span></div>
+      <div><b><span class="dot"></span>In conversation</b><span>A specialist is talking with them</span></div>
+      <div><b><span class="dot"></span>Customer</b><span>Agreement signed, devices active</span></div>
+      <div><b><span class="dot"></span>Qualified</b><span>90 active days complete</span></div>
+      <div><b><span class="dot" style="background:var(--green)"></span>Reward sent</b><span>Within 30 days of qualifying</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head"><div class="eyebrow">FAQ</div><h2>Questions we hear a lot</h2></div>
+    <div class="faq">
+      <details><summary>Who can refer?<svg class="i"><use href="#i-down"/></svg></summary><p>Zonar customers, partners, and industry contacts. If you know a business that runs vehicles, you can refer them.</p></details>
+      <details><summary>How many companies can I refer?<svg class="i"><use href="#i-down"/></svg></summary><p>As many as you like. There's no limit.</p></details>
+      <details><summary>When do I get my reward?<svg class="i"><use href="#i-down"/></svg></summary><p>Once the company has been an active customer for 90 days, the referral qualifies. Rewards are sent as e-gift cards within 30 days after that.</p></details>
+      <details><summary>Does the company I refer get anything?<svg class="i"><use href="#i-down"/></svg></summary><p>Yes. They earn a reward too, from $50 to $500 based on their fleet size. It doubles if they sign a 2-year contract and triples on a 3-year contract.</p></details>
+      <details><summary>What if someone else referred the same company?<svg class="i"><use href="#i-down"/></svg></summary><p>The reward goes to the first person who submitted the referral.</p></details>
+      <details><summary>What if they cancel?<svg class="i"><use href="#i-down"/></svg></summary><p>If the company cancels within 90 days of activation, the referral doesn't qualify.</p></details>
+      <details><summary>Can I refer a government agency or school district?<svg class="i"><use href="#i-down"/></svg></summary><p>Yes. Public sector referrals earn an invoice credit in place of a gift card.</p></details>
+      <details><summary>Can I earn more as a Zonar customer?<svg class="i"><use href="#i-down"/></svg></summary><p>Yes. Extend your own agreement when you refer and you'll get free service on each of your telematics and camera subscriptions: 1 month free for 24 more months, or 2 months free for 36 more months. You still get your gift card once the company you referred signs, and the credit applies whether or not they do.</p></details>
+      <details><summary>What if I'm not allowed to accept a gift card?<svg class="i"><use href="#i-down"/></svg></summary><p>Check the box on the form and we'll apply your reward as a credit on your company's account, the same way we handle public sector referrals.</p></details>
+      <details><summary>How do I check on a referral?<svg class="i"><use href="#i-down"/></svg></summary><p>We'll email you as it moves along. Zonar customers can also see status in the app under Refer &amp; earn.</p></details>
+    </div>
+    <p id="terms" style="margin-top:28px;color:var(--muted);font-size:14px">All referrals are subject to Zonar's verification and approval. Extension credits have no cash value, can't be transferred, and any unused credit is forfeited if the agreement ends early. Zonar employees aren't eligible. <a href="https://www.zonar.com/referral-program/">Read the full program terms</a>.</p>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Who do you know that runs a fleet?</h2>
+    <p>One introduction could be worth up to $1,500 to you and up to $1,500 to them.</p>
+    <a class="btn btn-white" href="#refer"><svg class="i"><use href="#i-userplus"/></svg>Refer a fleet</a>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Zonar Systems, Inc.</span><span>Proposed refresh, draft for review</span></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+
+<script>
+const tiers=[{you:100,them:50},{you:450,them:100},{you:800,them:200},{you:1500,them:500}];
+const $=n=>'$'+n.toLocaleString('en-US');
+const baseFine='Paid as a digital gift card after they\'ve been active for 90 days. Vehicles counted on the initial contract.';
+let tier=1,mult=1;
+function render(){const t=tiers[tier];
+  document.getElementById('you').textContent=$(t.you);
+  document.getElementById('them').textContent=$(t.them*mult);
+  document.getElementById('fine').textContent=mult>1?'They earn '+(mult===2?'double':'triple')+' on a '+mult+'-year contract. '+baseFine:baseFine;}
+document.querySelectorAll('.pill[data-t]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.pill[data-t]').forEach(p=>p.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true');tier=+b.dataset.t;render();}));
+document.querySelectorAll('.pill[data-m]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.pill[data-m]').forEach(p=>p.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true');mult=+b.dataset.m;render();}));
+const toast=document.getElementById('toast');
+function show(msg){toast.textContent=msg;toast.style.display='block';setTimeout(()=>toast.style.display='none',2200)}
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
+  navigator.clipboard&&navigator.clipboard.writeText(b.dataset.copy);show('Copied to clipboard');
+}));
+const xe=document.getElementById('x-ext'),xt=document.getElementById('x-term');xt.style.display='none';xe.addEventListener('change',()=>xt.style.display=xe.checked?'grid':'none');
+document.getElementById('ref-form').addEventListener('submit',e=>{e.preventDefault();show('Thanks. Your referral is in. We\'ll email you with updates.')});
+</script>
+</body>
+</html>
